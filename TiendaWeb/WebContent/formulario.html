@@ -6,39 +6,45 @@
 </head>
 <body>
 	<h1>Formulario de prueba</h1>
-	<table>
-		<tr>
-			<td>Nombre:</td>
-			<td><input type="text" name="nombre"/></td>
-		</tr>
-		<tr>
-			<td>Descripción:</td>
-			<td>
-				<textarea rows="2" cols="20" name="descripcion"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>Sexo</td>
-			<td>
-				<select name="sexo">
-					<option value="M">Masculino</option>
-					<option value="F">Femenino</option>
-				</select>			
-			</td>
-		</tr>
-		<tr>
-			<td>Tipo</td>
-			<td>
-				primero: <input type="checkbox" name="categoria" value="primero"/>
-				segundo: <input type="checkbox" name="categoria" value="segundo"/>
-				tercero: <input type="checkbox" name="categoria" value="tercero"/>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="enviar"/>
-			</td>
-		</tr>
-	</table>
+	
+	<form action="ProcesarFormulario" method="POST">
+	
+		<table>
+			<tr>
+				<td>Nombre:</td>
+				<td><input type="text" name="nombre" /></td>
+			</tr>
+			<tr>
+				<td>Descripción:</td>
+				<td><textarea rows="2" cols="20" name="descripcion"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td>Sexo</td>
+				<td><select name="sexo">
+						<option value="M">Masculino</option>
+						<option value="F">Femenino</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Categoría</td>
+				<td>primero <input type="checkbox" name="categoria"
+					value="primero" /> segundo <input type="checkbox" name="categoria"
+					value="segundo" /> tercero <input type="checkbox" name="categoria"
+					value="tercero" />
+				</td>
+			</tr>
+			<tr>
+				<td>Tipo</td>
+				<td>uno <input type="radio" name="tipo" value="uno" /> dos <input
+					type="radio" name="tipo" value="dos" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit"
+					value="enviar" /></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

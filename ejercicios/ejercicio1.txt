@@ -1,0 +1,3 @@
+Carrito de Compra de Artículos Electrónicos
+
+Debe crear un servlet de Inicio donde deberá mostrar sólo 3 artículos electrónicos, como en el sketch adjunto. Al hacer clic en "Agregar al Carrito" de mostrar el Carrito, donde sólo deberán salir reflejados los artículos para los cuales se seleccionaron cantidades.
