@@ -1,13 +1,14 @@
 package es.indra.formacion.springmvc.servlet;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import es.indra.formacion.springmvc.model.Producto;
 import es.indra.formacion.springmvc.service.IProductoService;
@@ -31,66 +32,56 @@ public class AgregarServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		IProductoService productoService = ProductoServiceFactory.createProductoService();
 		
 		String[] cantidades = request.getParameterValues("cantidad");
 		String[] productoIds = request.getParameterValues("productoId");
 		
-		String html = "<html>"+
-				"	<head>"+
-				"		<meta charset='iso-8859-1'>"+
-				"	</head>"+
-				"	<body>"+
-				"		<center>"+
-				"		<h1>Tienda de Equipos Electrónicos</h1>"+
-				"		<table>"+
-				"			<tr>"+
-				"				<th>Artículo</th>"+
-				"				<th>Precio</th>"+
-				"				<th>Cantidad</th>"+
-				"				<th>Total</th>"+
-				"			</tr>";
-
-
-		float totalTotal = 0;
+		Object obj = request.getSession().getAttribute("productos");
+		List<Producto> productos = null;
+		
+		if (obj == null)
+			productos = new LinkedList<Producto>();
+		else
+			productos = (List<Producto>) obj;
+		
 		for (int i = 0; i < productoIds.length; i++) {
-			String c = cantidades[i];
-			int productoId = Integer.parseInt(productoIds[i]);
-			
-			Producto p = productoService.obtenerProducto(productoId);
-			
 			try {
-				int cantidad = Integer.parseInt(c);
-				float total = p.getPrecio() * cantidad;
-				totalTotal += total;
+				int cantidad = Integer.parseInt(cantidades[i]);
+				int productoId = Integer.parseInt(productoIds[i]);
 				
-				html += "			<tr>"+
-					"				<td>" + p.getNombre() + "</td>"+
-					"				<td>" + p.getPrecio() + "</td>"+
-					"				<td><input type='text' name='cantidad' size='3' value='" + c + "'/></td>"+
-					"				<td>" + total + "</td>"+
-					"			</tr>";
+				Producto p = productoService.obtenerProducto(productoId);
+				p.setCantidad(cantidad);
+				
+				boolean encontrado = false;
+				for (int j = 0; j < productos.size(); j++) {
+					Producto prod = productos.get(j);
+
+					if (prod.getId().equals(p.getId())) {
+						int cantidadResultante = prod.getCantidad() + cantidad;
+						
+						if (cantidadResultante > 0) 
+							prod.setCantidad(cantidadResultante);
+						else
+							productos.remove(j);
+						
+						encontrado = true;
+						break;
+					}
+				}
+				
+				if (!encontrado) {
+					productos.add(p);
+				}
 				
 			} catch (NumberFormatException nfe) { }
 		}
 		
-		html += "			<tr>"+
-				"				<td colspan='3' align='right'>Total</td>"+
-				"				<td>" + totalTotal + "</td>"+
-				"			</tr>";
-
-		html += "		<tr>"+
-			"				<td colspan='4' align='center'><a href='Inicio'>Inicio</a></td>"+
-			"			</tr>"+
-			"		</table>"+
-			"		</form>"+
-			"		</center>"+
-			"	</body>"+
-			"</html>";
-
-		response.getWriter().println(html);
-		response.getWriter().flush();
+		request.getSession().setAttribute("productos", productos);
+		
+		response.sendRedirect("Mostrar");
 	}
 
 }

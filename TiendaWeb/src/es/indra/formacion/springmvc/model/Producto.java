@@ -8,12 +8,12 @@ public class Producto implements Serializable {
 	private Integer id;
 	private String nombre;
 	private Float precio; 
-	private Float cantidad;
+	private Integer cantidad;
 	
 	public Producto() {
 	}
 	
-	public Producto(Integer id, String nombre, Float precio, Float cantidad) {
+	public Producto(Integer id, String nombre, Float precio, Integer cantidad) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
@@ -42,10 +42,10 @@ public class Producto implements Serializable {
 	public void setPrecio(Float precio) {
 		this.precio = precio;
 	}
-	public Float getCantidad() {
+	public Integer getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(Float cantidad) {
+	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
 	@Override

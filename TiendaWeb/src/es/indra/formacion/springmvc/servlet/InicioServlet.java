@@ -59,7 +59,7 @@ public class InicioServlet extends HttpServlet {
 				"			</tr>";
 		}
 				html += "			<tr>"+
-				"				<td colspan='3' align='center'><input type='submit' value='Agregar'/></td>"+
+				"				<td colspan='3' align='center'><input type='submit' value='Agregar'/><a href='Mostrar'><input type='button' value='Carrito'/></a></td>"+
 				"			</tr>"+
 				"		</table>"+
 				"		</form>"+
