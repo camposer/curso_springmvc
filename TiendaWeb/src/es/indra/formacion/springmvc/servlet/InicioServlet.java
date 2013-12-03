@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.indra.formacion.springmvc.model.Producto;
+import es.indra.formacion.springmvc.service.IProductoService;
+import es.indra.formacion.springmvc.service.ProductoServiceFactory;
+
 /**
  * Servlet implementation class InicioServlet
  */
@@ -28,6 +32,9 @@ public class InicioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		IProductoService productoService = 
+				ProductoServiceFactory.createProductoService();
+		
 		PrintWriter pw = response.getWriter();
 		String html = "<html>"+
 				"	<head>"+
@@ -42,23 +49,16 @@ public class InicioServlet extends HttpServlet {
 				"				<th>Artículo</th>"+
 				"				<th>Precio</th>"+
 				"				<th>Cantidad</th>"+
-				"			</tr>"+
-				"			<tr>"+
-				"				<td>Portátiles</td>"+
-				"				<td>599</td>"+
+				"			</tr>";
+		
+		for (Producto p : productoService.obtenerProductos()) {
+			html += "			<tr>"+
+				"				<td>" + p.getNombre() + "</td>"+
+				"				<td>" + p.getPrecio() + "</td>"+
 				"				<td><input type='text' name='cantidad' size='3'/></td>"+
-				"			</tr>"+
-				"			<tr>"+
-				"				<td>DVD</td>"+
-				"				<td>230</td>"+
-				"				<td><input type='text' name='cantidad' size='3'/></td>"+
-				"			</tr>"+
-				"			<tr>"+
-				"				<td>Cámaras</td>"+
-				"				<td>60</td>"+
-				"				<td><input type='text' name='cantidad' size='3'/></td>"+
-				"			</tr>"+
-				"			<tr>"+
+				"			</tr>";
+		}
+				html += "			<tr>"+
 				"				<td colspan='3' align='center'><input type='submit' value='Agregar'/></td>"+
 				"			</tr>"+
 				"		</table>"+

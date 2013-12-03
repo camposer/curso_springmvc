@@ -33,7 +33,7 @@ public class AgregarServlet extends HttpServlet {
 				"	<head>"+
 				"		<meta charset='iso-8859-1'>"+
 				"	</head>"+
-				"	<body>GET"+
+				"	<body>"+
 				"		<center>"+
 				"		<h1>Tienda de Equipos Electrónicos</h1>"+
 				"		<table>"+
