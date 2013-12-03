@@ -52,8 +52,8 @@ public class InicioServlet extends HttpServlet {
 				"			</tr>";
 		
 		for (Producto p : productoService.obtenerProductos()) {
-			html += "			<tr>"+
-				"				<td>" + p.getNombre() + "</td>"+
+			html += "		<tr>"+
+				"				<td><input type='hidden' name='productoId' value='" + p.getId() + "'/>" + p.getNombre() + "</td>"+
 				"				<td>" + p.getPrecio() + "</td>"+
 				"				<td><input type='text' name='cantidad' size='3'/></td>"+
 				"			</tr>";
