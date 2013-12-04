@@ -46,51 +46,11 @@ public class MostrarServlet extends HttpServlet {
 		if (obj != null)
 			productos = (List<Producto>) obj;
 		
-		String html = "<html>"+
-				"	<head>"+
-				"		<meta charset='iso-8859-1'>"+
-				"	</head>"+
-				"	<body>"+
-				"		<center>"+
-				"		<h1>Tienda de Equipos Electrónicos</h1>"+
-				"		<table>"+
-				"			<tr>"+
-				"				<th>Artículo</th>"+
-				"				<th>Precio</th>"+
-				"				<th>Cantidad</th>"+
-				"				<th>Total</th>"+
-				"			</tr>";
-
-
-		float totalTotal = 0;
-		for (Producto p : productos) {
-			float total = p.getPrecio() * p.getCantidad();
-			totalTotal += total;
-				
-			html += "			<tr>"+
-				"				<td>" + p.getNombre() + "</td>"+
-				"				<td>" + p.getPrecio() + "</td>"+
-				"				<td><input type='text' name='cantidad' size='3' value='" + p.getCantidad() + "'/></td>"+
-				"				<td>" + total + "</td>"+
-				"			</tr>";
-		}
+		request.setAttribute("productos", productos);
 		
-		html += "			<tr>"+
-				"				<td colspan='3' align='right'>Total</td>"+
-				"				<td>" + totalTotal + "</td>"+
-				"			</tr>";
-
-		html += "		<tr>"+
-			"				<td colspan='4' align='center'><a href='Inicio'>Inicio</a></td>"+
-			"			</tr>"+
-			"		</table>"+
-			"		</form>"+
-			"		</center>"+
-			"	</body>"+
-			"</html>";
-
-		response.getWriter().println(html);
-		response.getWriter().flush();
+		getServletContext()
+			.getRequestDispatcher("/mostrar.jsp")
+			.forward(request, response);
 
 	}
 
