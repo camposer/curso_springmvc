@@ -3,5 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
-           
+
+	<bean id="holaMundo1" class="bean.HelloWorld"/>
+	<bean id="holaMundo2" class="bean.HelloWorld" scope="prototype"/>
+
+	<bean id="envoltorio1" class="bean.Envoltorio">
+		<property name="holaMundo" ref="holaMundo1"/>
+	</bean>
+
+	<bean id="envoltorio2" class="bean.Envoltorio" scope="prototype">
+		<property name="holaMundo" ref="holaMundo2"/>
+	</bean>
+
 </beans>
