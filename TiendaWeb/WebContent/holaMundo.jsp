@@ -7,11 +7,11 @@
 <title>Hola Mundo</title>
 </head>
 <body>
-	Hola <%= request.getParameter("nombre") %><br/>
-	Tu edad es: <%= request.getParameter("edad") %><br/>
+	Hola <%= request.getAttribute("nombre") %><br/>
+	Tu edad es: <%= request.getAttribute("edad") %><br/>
 	
 	<%
-		int edad = Integer.parseInt(request.getParameter("edad"));
+		int edad = (Integer)request.getAttribute("edad");
 	
 		if (edad >= 18) {
 	%>

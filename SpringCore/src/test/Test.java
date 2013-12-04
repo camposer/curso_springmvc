@@ -11,7 +11,7 @@ public class Test {
 	public static void main(String[] args) {
 		ApplicationContext context = 
 				new ClassPathXmlApplicationContext(
-						"config/applicationContext.xml"
+						"config/applicationContext-annotations.xml"
 					); 
 		
 		IHolaMundo holaMundo1 = context.getBean(
@@ -43,16 +43,6 @@ public class Test {
 				Envoltorio.class);
 		envoltorio1.imprimir(); // => Hello: Rodolfo
 
-		Envoltorio envoltorio2 = context.getBean(
-				"envoltorio2", 
-				Envoltorio.class);
-		envoltorio2.imprimir(); // => Hello: Undefined
-		envoltorio2.getHolaMundo().setNombre("Pedro");
-		
-		envoltorio2 = context.getBean(
-				"envoltorio2", 
-				Envoltorio.class);
-		envoltorio2.imprimir(); // => ?
 	}
 
 }
