@@ -1,0 +1,1 @@
+Refactorizar TiendaWeb para que utilice Spring MVC en lugar de sólo Servlets y JSP
