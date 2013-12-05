@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.indra.formacion.springmvc.editor.PrecioEditor;
 import es.indra.formacion.springmvc.model.Producto;
 import es.indra.formacion.springmvc.service.IProductoService;
 import es.indra.formacion.springmvc.validator.ProductoValidator;
@@ -39,6 +40,7 @@ public class ProductoController {
 	
 	@InitBinder
 	public void binder(WebDataBinder binder) {
+		binder.registerCustomEditor(Float.class, new PrecioEditor());
 		binder.setValidator(productoValidator);
 	}
 	
