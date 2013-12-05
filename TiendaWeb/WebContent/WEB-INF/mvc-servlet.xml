@@ -13,6 +13,9 @@
 	<context:component-scan 
 		base-package="es.indra.formacion.springmvc.controller"/>
 
+	<context:component-scan 
+		base-package="es.indra.formacion.springmvc.validator"/>
+
 	<!-- BEGIN: i18n -->
 	<!-- Define dónde estarán los messages.properties -->
 	<!-- Requerido -->	

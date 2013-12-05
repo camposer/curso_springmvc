@@ -46,7 +46,6 @@ public class CarritoController {
 				int productoId = Integer.parseInt(productoIds[i]);
 				
 				Producto p = productoService.obtenerProducto(productoId);
-				p.setCantidad(cantidad);
 				
 				boolean encontrado = false;
 				for (int j = 0; j < productos.size(); j++) {
@@ -66,6 +65,7 @@ public class CarritoController {
 				}
 				
 				if (!encontrado) {
+					p.setCantidad(cantidad);					
 					productos.add(p);
 				}
 				
