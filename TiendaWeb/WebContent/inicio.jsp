@@ -13,7 +13,7 @@ http://www.w3.org/TR/html4/loose.dtd>
 
 	<center>
 		<h1>Tienda de Equipos Electrónicos</h1>
-		<form action='Agregar' method='POST'>
+		<form action='agregar.do' method='POST'>
 			<table>
 				<tr>
 					<th>Artículo</th>
@@ -41,7 +41,7 @@ http://www.w3.org/TR/html4/loose.dtd>
 
 				<tr>
 					<td colspan='3' align='center'><input type='submit'
-						value='Agregar' /><a href='Mostrar'><input type='button'
+						value='Agregar' /><a href='mostrar.do'><input type='button'
 							value='Carrito' /></a></td>
 				</tr>
 			</table>

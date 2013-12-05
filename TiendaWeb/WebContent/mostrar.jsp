@@ -50,7 +50,7 @@
 			</tr>
 
 			<tr>
-				<td colspan='4' align='center'><a href='Inicio'>Inicio</a></td>
+				<td colspan='4' align='center'><a href='inicio.do'>Inicio</a></td>
 			</tr>
 		</table>
 		</form>
