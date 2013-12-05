@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="es.indra.formacion.springmvc.model.Producto"%>
 <%@ page import="java.util.List"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <!DOCTYPE html PUBLIC -//W3C//DTD HTML 4.01 Transitional//EN
 http://www.w3.org/TR/html4/loose.dtd>
 <html>
@@ -12,13 +14,13 @@ http://www.w3.org/TR/html4/loose.dtd>
 <body>
 
 	<center>
-		<h1>Tienda de Equipos Electrónicos</h1>
+		<h1><spring:message code="inicio.titulo"/></h1>
 		<form action='agregar.do' method='POST'>
 			<table>
 				<tr>
-					<th>Artículo</th>
-					<th>Precio</th>
-					<th>Cantidad</th>
+					<th><spring:message code="inicio.tabla.articulo"/></th>
+					<th><spring:message code="inicio.tabla.precio"/></th>
+					<th><spring:message code="inicio.tabla.cantidad"/></th>
 				</tr>
 
 				<%
@@ -41,8 +43,8 @@ http://www.w3.org/TR/html4/loose.dtd>
 
 				<tr>
 					<td colspan='3' align='center'><input type='submit'
-						value='Agregar' /><a href='mostrar.do'><input type='button'
-							value='Carrito' /></a></td>
+						value='<spring:message code="inicio.boton.agregar"/>' /><a href='mostrar.do'><input type='button'
+							value='<spring:message code="inicio.boton.carrito"/>' /></a></td>
 				</tr>
 			</table>
 		</form>
