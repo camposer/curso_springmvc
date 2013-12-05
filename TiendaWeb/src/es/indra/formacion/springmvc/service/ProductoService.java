@@ -2,19 +2,16 @@ package es.indra.formacion.springmvc.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import es.indra.formacion.springmvc.dao.IProductoDao;
-import es.indra.formacion.springmvc.dao.ProductoDaoFactory;
 import es.indra.formacion.springmvc.model.Producto;
 
 public class ProductoService implements IProductoService {
+	@Autowired
 	IProductoDao productoDao;
 	
-	public ProductoService() {
-		productoDao = ProductoDaoFactory.createProductoDao();
-		init();
-	}
-
-	private void init() {
+	public void init() {
 		productoDao.agregar(new Producto("Portátiles", 599f));
 		productoDao.agregar(new Producto("DVD", 230f));
 		productoDao.agregar(new Producto("Cámaras", 60f));

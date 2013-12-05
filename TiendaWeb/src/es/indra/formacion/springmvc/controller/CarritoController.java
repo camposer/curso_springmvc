@@ -1,48 +1,38 @@
 package es.indra.formacion.springmvc.controller;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import es.indra.formacion.springmvc.model.Producto;
 import es.indra.formacion.springmvc.service.IProductoService;
-import es.indra.formacion.springmvc.service.ProductoServiceFactory;
 
 @Controller
 @RequestMapping("/carrito/*")
 public class CarritoController {
+	@Autowired
+	IProductoService productoService;
 	
 	@RequestMapping("inicio")
-	public void inicio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		IProductoService productoService = 
-				ProductoServiceFactory.createProductoService();
+	public String inicio(Model model) {
+		model.addAttribute("productos", productoService.obtenerProductos());
 		
-		List<Producto> productos = productoService.obtenerProductos();
-		request.setAttribute("productos", productos);
-		
-		request.getServletContext()
-			.getRequestDispatcher("/inicio.jsp")
-			.forward(request, response);
-
+		return "/inicio.jsp";
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="agregar", method=RequestMethod.POST)
-	public void agregar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		IProductoService productoService = ProductoServiceFactory.createProductoService();
-		
-		String[] cantidades = request.getParameterValues("cantidad");
-		String[] productoIds = request.getParameterValues("productoId");
-		
-		Object obj = request.getSession().getAttribute("productos");
+	public String agregar(@RequestParam("cantidad") String[] cantidades, @RequestParam("productoId") String[] productoIds, HttpSession sesion) {
+		Object obj = sesion.getAttribute("productos");
 		List<Producto> productos = null;
 		
 		if (obj == null)
@@ -82,28 +72,22 @@ public class CarritoController {
 			} catch (NumberFormatException nfe) { }
 		}
 		
-		request.getSession().setAttribute("productos", productos);
+		sesion.setAttribute("productos", productos);
 		
-		response.sendRedirect("mostrar.do");
+		return "redirect:mostrar.do";
 
 	}
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("mostrar")
-	public void mostrar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ModelAndView mostrar(HttpSession sesion) {
 		List<Producto> productos = new LinkedList<Producto>();
 		
-		Object obj = request.getSession().getAttribute("productos");
+		Object obj = sesion.getAttribute("productos");
 		
 		if (obj != null)
 			productos = (List<Producto>) obj;
 		
-		request.setAttribute("productos", productos);
-		
-		request.getServletContext()
-			.getRequestDispatcher("/mostrar.jsp")
-			.forward(request, response);
-
-		
+		return new ModelAndView("/mostrar.jsp", "productos", productos);
 	}
 }
